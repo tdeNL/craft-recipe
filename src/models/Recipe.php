@@ -296,7 +296,7 @@ class Recipe extends Model
             foreach ($this->ingredients as $row) {
                 $convertedUnits = "";
                 $ingredient = "";
-                if ($row['quantity']) {
+                if (isset($row['quantity'])) {
                     // Multiply the quantity by how many servings we want
                     $multiplier = 1;
                     if ($serving > 0) {

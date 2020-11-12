@@ -16,15 +16,19 @@
 
 {% set baseAssetsUrl = view.getAssetManager().getPublishedUrl('@nystudio107/recipe/assetbundles/recipefield/dist', true) %}
 
+{% set recipeTabOrigin = id ~ 'tabs-recipe' %}
+{% set healthTabOrigin = id ~ 'tabs-health' %}
+{% set recipeTabTarget = 'fields-' ~ id ~ 'tab-recipe' %}
+{% set healthTabTarget = 'fields-' ~ id ~ 'tab-health' %}
+
 <div id="{{ id }}" class="recipe-field">
     <div class="pane">
         <nav class="customtabs">
             <ul>
-                <li><a id="{{ id ~ "tabs-recipe" }}" class="tab sel" href="#{{ prefix ~ id ~ 'tab-recipe' }}"  tabindex="0"><img class="recipe-field-icon" src="{{ baseAssetsUrl ~ '/img/Recipe-icon.svg' }}" width="16px" height="auto" /><span class="recipe-field-title">Recipe</span></a></li>
-                <li><a id="{{ id ~ "tabs-health" }}" class="tab" href="#{{ prefix ~ id ~ 'tab-health' }}" tabindex="0"><img class="recipe-field-icon" src="{{ baseAssetsUrl ~ '/img/Healthy-icon.svg' }}" width="16px" height="auto" /><span class="recipe-field-title">Nutrition</span></a></li>
+                <li><a id="{{ recipeTabOrigin }}" class="tab sel" href="#{{ recipeTabTarget }}"  tabindex="0"><img class="recipe-field-icon" src="{{ baseAssetsUrl ~ '/img/Recipe-icon.svg' }}" width="16px" height="auto" /><span class="recipe-field-title">Recipe</span></a></li>
+                <li><a id="{{ healthTabOrigin }}" class="tab" href="#{{ healthTabTarget }}" tabindex="0"><img class="recipe-field-icon" src="{{ baseAssetsUrl ~ '/img/Healthy-icon.svg' }}" width="16px" height="auto" /><span class="recipe-field-title">Nutrition</span></a></li>
             </ul>
         </nav>
-
 
         <div id="{{ id ~ "tab-recipe" }}">
             {{ forms.textField({
@@ -279,9 +283,9 @@
     $(function () {
         $('#fields-{{ id ~ 'tabs-recipe' }}').on('click', function (e) {
             e.preventDefault();
-
-            $('#{{ prefix ~ id ~ 'tab-recipe' }}').removeClass('hidden');
-            $('#{{ prefix ~ id ~ 'tab-health' }}').addClass('hidden');
+	
+            $('#{{ recipeTabTarget }}').removeClass('hidden');
+            $('#{{ healthTabTarget }}').addClass('hidden');
 
             $('#fields-{{ id ~ 'tabs-recipe' }}').addClass('sel');
             $('#fields-{{ id ~ 'tabs-health' }}').removeClass('sel');
@@ -289,8 +293,8 @@
 
         $('#fields-{{ id ~ 'tabs-health' }}').on('click', function (e) {
             e.preventDefault();
-            $('#{{ prefix ~ id ~ 'tab-recipe' }}').addClass('hidden');
-            $('#{{ prefix ~ id ~ 'tab-health' }}').removeClass('hidden');
+            $('#{{ recipeTabTarget }}').addClass('hidden');
+            $('#{{ healthTabTarget }}').removeClass('hidden');
 
             $('#fields-{{ id ~ 'tabs-recipe' }}').removeClass('sel');
             $('#fields-{{ id ~ 'tabs-health' }}').addClass('sel');

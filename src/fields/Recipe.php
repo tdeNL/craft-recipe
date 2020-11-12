@@ -18,7 +18,6 @@ use Craft;
 use craft\base\ElementInterface;
 use craft\base\Field;
 use craft\elements\Asset;
-use craft\helpers\Html;
 use craft\helpers\Json;
 
 use yii\db\Schema;
@@ -101,7 +100,7 @@ class Recipe extends Field
             .'Recipe_settings',
             [
                 'field' => $this,
-                'assetSources' => $this->getSourceOptions(),
+                'assetSources' => Asset::sources(),
             ]
         );
     }
@@ -159,24 +158,5 @@ class Recipe extends Field
                 'assetSources' => $this->assetSources,
             ]
         );
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function getSourceOptions(): array
-    {
-        $sourceOptions = [];
-
-        foreach (Asset::sources('settings') as $key => $volume) {
-            if (!isset($volume['heading'])) {
-                $sourceOptions[] = [
-                    'label' => Html::encode($volume['label']),
-                    'value' => $volume['key']
-                ];
-            }
-        }
-
-        return $sourceOptions;
     }
 }
